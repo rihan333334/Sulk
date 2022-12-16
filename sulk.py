@@ -37,15 +37,14 @@ def clear():
 
 def error():
     banner()
-    print("[" + colors.FAIL + "x" + colors.ENDC + "] Error, that answer was not expected.")
+    print("[" + colors.FAIL + "x" + colors.ENDC + "] Error, that answer was not expected.\n")
     exit()
 
 def main():
     banner()
-    # Mensaje de texto a enviar
     message = input("[" + colors.OKCYAN + ">" + colors.ENDC + "] Enter the message you want to send: ")
+   
     banner()
-    # Mensaje de confirmación de envio
     confirm = input("[" + colors.HEADER + "?" + colors.ENDC + "] Are you sure to send the message [y/n]: ")
     
     if confirm in ['n', 'N', 'No', 'no', 'NO']:
@@ -63,23 +62,19 @@ def main():
 
     elif confirm in ['y', 'Y', 'Yes', 'yes', 'YES']:
         banner()
-        # Ruta donde se encuentra el archivo
-        # En este caso, se obtiene el directorio del script y se une
-        # con el nombre del archivo
+
         script_dir = os.path.dirname(__file__)
         path = os.path.join(script_dir, file)
 
-        # Se leen los números de teléfono desde el archivo
         with open(path) as f:
             numbers = [x.strip() for x in f.readlines()]
 
         true_count = 0
         false_count = 0
 
-        # Se envía una petición POST por cada número de teléfono
         for number in numbers:
             payload = {
-                "phone": number, 
+                "phone": number,
                 "message": message, 
                 "key": API_KEY
                 }
@@ -88,18 +83,18 @@ def main():
                 data = payload
                 )
 
-            # Si la respuesta tiene un valor success, aumentar el contador true
-            if ['success'] == 'True' in resp.json():
+            if resp.json()['success']:
                 true_count += 1
             else:
                 false_count += 1
 
-            print("[" + colors.OKCYAN + ">" + colors.ENDC + "] " + number + " ({})".format(colors.OKGREEN + 'Success' + colors.ENDC if resp.json()['success']=='True' else colors.FAIL + 'Failed' + colors.ENDC)) 
+            print("[" + colors.OKCYAN + ">" + colors.ENDC + "] " + number + " ({})".format(colors.OKGREEN + 'Success' + colors.ENDC if resp.json()['success'] else colors.FAIL + 'Failed' + colors.ENDC)) 
             
         print('\fTotal: {} ({}: {} | {}: {})'.format(len(numbers), colors.OKGREEN + 'Success' + colors.ENDC, true_count, colors.FAIL + 'Failed' + colors.ENDC, false_count))
         quota = requests.get('https://textbelt.com/quota/'+ API_KEY)
         quota = quota.json()['quotaRemaining']
-        print('Remaining quota: {}{}%{}\f'.format(colors.WARNING, quota, colors.ENDC))
+        quota = str(quota)
+        print('Remaining messages: {}\f'.format(colors.WARNING + quota + colors.ENDC))
 
     else:
         error()
