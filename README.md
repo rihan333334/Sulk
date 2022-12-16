@@ -28,5 +28,6 @@ python Sulk.py
 ```
 
 # Notes
-* It is not recommended to use the free API, as it only allows you to send one sms to one recipient.
+* It is not recommended to use the free API, as it only allows you to send one sms to one recipient per day.
+* When you purchase the KEY API, remember to select 'worldwide' to be able to send SMS to any recipient regardless of their location.
 * The tool has been tested on linux systems and on windows systems with powershell.
