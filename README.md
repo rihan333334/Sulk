@@ -16,10 +16,17 @@ Sulk is a tool written in Python3 that allows you to send bulk SMS via the Textb
 # API textbelt.com
 API_KEY = ""
 ```
-* Step 2: Execute Sulk
+* Step 2: Add the phone numbers (including extension) of the targets in the [numbers.txt](https://github.com/pablokbg/Sulk/blob/main/numbers.txt) file.
+```
++34XXXXXXXXX
++33XXXXXXXXX
+......
+```
+* Step 3: Execute Sulk
 ```
 python Sulk.py
 ```
 
-# Nota
-La IA a veces puede dar resúmenes incoherentes, por ello vuelva a repetir el proceso nuevamente o especifique mejor el libro que quiere que resuma.
+# Notes
+* It is not recommended to use the free API, as it only allows you to send one sms to one recipient.
+* The tool has been tested on linux systems and on windows systems with powershell.
