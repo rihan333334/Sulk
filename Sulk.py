@@ -33,7 +33,7 @@ def banner():
     print(colors.WARNING + "Sulk (SMS Bulk) - Bulk SMS using the textbelt API | " + colors.OKGREEN + "Author: " + colors.WARNING + "pablokbg | " + colors.OKGREEN + "Website: " + colors.WARNING + "https://pablokbg.com\n" + colors.ENDC)
 
 def clear():
-    os.system("cls")
+    os.system("clear")
 
 def error():
     banner()
